@@ -313,7 +313,7 @@ while programa:
 
         pygame.display.flip()
 
-    # 'PÁGINA' DO RANKING DE JOGADORES
+    # ----- 'PÁGINA' DO RANKING DE JOGADORES -----
     while rank:
         pass
     
