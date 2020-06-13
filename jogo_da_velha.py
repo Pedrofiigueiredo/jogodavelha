@@ -89,7 +89,7 @@ while programa:
             if 262 < x < 341 and 357 < y < 384:
                 rank = True
                 menu = False
-            elif 262 < x < 338 and 428 < y < 452:
+            elif 240 < x < 360 and 420 < y < 460:
                 nome_x = True
                 menu = False
 
@@ -190,11 +190,14 @@ while programa:
     while rank:
         pass
 
-    screen.fill((0, 0, 0))
+
 
     # ----- JOGO -----
+    continua = True
+    tela_final = True
     while jogo:
-        while step < 9:
+        screen.fill((0, 0, 0))
+        while continua:
 
             event = pygame.event.poll()
             if event.type == pygame.QUIT:
@@ -225,32 +228,69 @@ while programa:
                     if func.status(tabuleiro):
                         jogador = func.jogador(step)
                         print('Parabens jogador {} voce ganhou o jogo'.format(jogador))
-                        break
+                        continua = False
                     if step == 9 and func.status(tabuleiro) == False:
                         jogador = 'empatou'
-                        break
+                        continua = False
 
+
+        # TELA FINAL (jogar de novo, ver ranking ou sair do jogo)
         pygame.time.delay(500)
         screen.fill((0, 0, 0))
         if jogador != 'empatou':
             if jogador == 'X':
-                screen.blit(ganhador_x, (175, 120))
+                screen.blit(ganhador_x, (175, 15))
             elif jogador == '0':
-                screen.blit(ganhador_o, (175, 120))
-            font = pygame.font.Font(None, 50)
+                screen.blit(ganhador_o, (175, 15))
+            font = pygame.font.Font(None, 70)
             text = font.render('Ganhou!', 1, (255, 255, 255))
-            text_pos = text.get_rect(center=(300, 420))
+            text_pos = text.get_rect(center=(300, 300))
             screen.blit(text, text_pos)
         else:
             font = pygame.font.Font(None, 50)
             text = font.render('Empatou!', 1, (255, 255, 255))
-            text_pos = text.get_rect(center=(300, 340))
+            text_pos = text.get_rect(center=(300, 300))
             screen.blit(text, text_pos)
+
+        text_ranking = medium_font.render('Ranking de jogadores', 0, (255, 255, 255))
+        text_restart = medium_font.render('Jogar de novo', 0, (255, 255, 255))
+        text_quit = medium_font.render('Sair do jogo', 0, (255, 255, 255))
+
+        text_ranking_pos = text_ranking.get_rect(center=(300, 410))
+        text_restart_pos = text_restart.get_rect(center=(300, 460))
+        text_quit_pos = text_quit.get_rect(center=(300, 510))
+
+        option_rect = pygame.Rect(180, 385, 240, 150)
+        pygame.draw.rect(screen, (255, 39, 53), option_rect, 3)
+        pygame.draw.rect(screen, (255, 0, 0), [180, 435, 240, 50])
+        screen.blit(text_quit, text_quit_pos)
+        screen.blit(text_restart, text_restart_pos)
+        screen.blit(text_ranking, text_ranking_pos)
         pygame.display.flip()
 
-        jogo = False
+        while tela_final:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    posi_x, posi_y = event.pos
+                    if 183 <= posi_x <= 417:
+                        if 387 <= posi_y <= 435:
+                            #ranking
+                            print('ranking')
+                        elif 435 < posi_y <= 485:
+                            step = 0
+                            continua = True
+                            tabuleiro = [['?', '?', '?'],
+                                         ['?', '?', '?'],
+                                         ['?', '?', '?']]
+                            break
+                        elif 485 < posi_y <= 533:
+                            pygame.quit()
+                            sys.exit()
+            break
 
-    # TELA FINAL (jogar de novo, ver ranking ou sair do jogo)
 
     event = pygame.event.poll()
     if event.type == pygame.QUIT:
