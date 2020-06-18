@@ -1,0 +1,14 @@
+MARCELO:18
+PEDRO:18
+Maria Julia:16
+Daniel:13
+João:11
+Lucas:7
+Cláudio:7
+Pedro:4
+P:4
+Marcelo:2
+J:1
+LUÍS:1
+CLÁUDIA:1
+DANIEL:1
