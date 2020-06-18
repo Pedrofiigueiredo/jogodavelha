@@ -1,5 +1,5 @@
+PEDRO:20
 MARCELO:18
-PEDRO:18
 Maria Julia:16
 Daniel:13
 João:11
@@ -12,3 +12,4 @@ J:1
 LUÍS:1
 CLÁUDIA:1
 DANIEL:1
+LUCAS:1

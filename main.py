@@ -23,6 +23,7 @@ icone2 = pygame.image.load('assets/icone2.png').convert_alpha()
 sound = pygame.image.load('assets/sound.png').convert_alpha()
 mute = pygame.image.load('assets/mute.png').convert_alpha()
 trofeu = pygame.image.load('assets/trofeu.png').convert_alpha()
+trofeu2 = pygame.image.load('assets/trofeu2.png').convert_alpha()
 lstars = pygame.image.load('assets/lstars.png').convert_alpha()
 rstars = pygame.image.load('assets/rstars.png').convert_alpha()
 lstars2 = pygame.image.load('assets/lstars2.png').convert_alpha()
@@ -40,6 +41,7 @@ small_font = pygame.font.Font('assets/Pixellari.ttf', 17)
 
 font2 = pygame.font.Font('assets/fredokaone.ttf', 30)
 medium_font2 = pygame.font.Font('assets/fredokaone.ttf', 17)
+small_font2 = pygame.font.Font('assets/fredokaone.ttf', 14)
 
 def blitar(jogador, posi_x, posi_y):
     screen.blit(jogador, (posi_x, posi_y))
@@ -319,8 +321,132 @@ while programa:
 
     # ----- 'PÁGINA' DO RANKING DE JOGADORES -----
     while ranking:
-        print('ranking')
-        ranking = False
+
+        event = pygame.event.poll()
+
+        # Sair do jogo
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        screen.fill((0, 0, 0))
+
+        # --- Configurando textos estáticos ---  
+
+        font2 = pygame.font.Font('assets/fredokaone.ttf', 25)
+
+        # Escrever texto
+        text_title = font.render('Ranking de Jogadores', 0, (255, 255, 255))
+        text_description = small_font2.render('Top 5 jogadores', 0, (255, 255, 255))
+        text_player_name = medium_font2.render('Nome do jogador', 0, (255, 255, 255))
+        text_points = medium_font2.render('Número de vitórias', 0, (255, 255, 255))
+        text_start = font2.render('Jogar', 0, (255, 255, 255))
+
+        # [Botão] Caixa por volta de 'Jogar' | x, y, w, h
+        pygame.draw.rect(screen, (255, 255, 255), [388, 521, 169, 46]) # Borda
+        pygame.draw.rect(screen, (26, 99, 240), [391, 524, 163, 40])
+
+        # Configurando posicionamento | center = (x, y)
+        text_title_pos = text_title.get_rect(center=(300, 110))
+        text_description_pos = text_description.get_rect(center = (300, 140))
+
+        # Imprime os textos
+        screen.blit(text_title, text_title_pos) # Título (Ranking de Jogadores)
+        screen.blit(text_description, text_description_pos) # 'Top 5 jogadores'
+        screen.blit(text_player_name, (90, 171)) # 'Nome do Jogador'
+        screen.blit(text_points, (355, 171)) # 'Número de Vitórias'
+        screen.blit(text_start, (438, 528)) # Texto do botão Jogar
+
+        # Imagens
+        screen.blit(trofeu2, (279, 37)) # Ícone do topo
+        screen.blit(lstars, (122, 100)) # Estrelas da esquerda
+        screen.blit(rstars, (444, 100)) # Estrelas da direita
+        screen.blit(sound, (41, 521)) # Botão de som ativado
+
+
+        # --- Configuração dos nomes e pontos dos jogadores ---
+
+        arquivo = open('data/ranking.txt', 'r')
+
+        top5_names = []
+        top5_points = []
+
+        c = 0
+        for lines in arquivo:
+            lines = lines.rstrip()
+            gamer_info = lines.split(':')
+            top5_names.append(gamer_info[0])
+            top5_points.append(gamer_info[1])
+
+            c += 1
+
+            if c == 5:
+                break
+
+
+        # Escrever textos
+        player_name_1 = small_font2.render(top5_names[0], 0, (255, 255, 255))
+        player_name_2 = small_font2.render(top5_names[1], 0, (255, 255, 255))
+        player_name_3 = small_font2.render(top5_names[2], 0, (255, 255, 255))
+        player_name_4 = small_font2.render(top5_names[3], 0, (255, 255, 255))
+        player_name_5 = small_font2.render(top5_names[4], 0, (255, 255, 255))
+
+        pedro = small_font2.render('Pedro Figueiredo Dias', 0, (255, 255, 255))
+        lucas = small_font2.render('Ye Wei Jiang', 0, (255, 255, 255))
+        claudio = small_font2.render('Claudio Siqueira Ramos Junior', 0, (255, 255, 255))
+
+        points_1 = small_font2.render(top5_points[0], 0, (255, 255, 255))
+        points_2 = small_font2.render(top5_points[1], 0, (255, 255, 255))
+        points_3 = small_font2.render(top5_points[2], 0, (255, 255, 255))
+        points_4 = small_font2.render(top5_points[3], 0, (255, 255, 255))
+        points_5 = small_font2.render(top5_points[4], 0, (255, 255, 255))
+
+        tia_pedro = small_font2.render('4199045-5', 0, (255, 255, 255))
+        tia_lucas = small_font2.render('4192629-3', 0, (255, 255, 255))
+        tia_claudio = small_font2.render('4191656-5', 0, (255, 255, 255))
+
+        # Configuração de posicionamento
+        points_1_pos = points_1.get_rect(center = (428, 225))
+        points_2_pos = points_2.get_rect(center = (428, 250))
+        points_3_pos = points_3.get_rect(center = (428, 275))
+        points_4_pos = points_4.get_rect(center = (428, 300))
+        points_5_pos = points_5.get_rect(center = (428, 325))
+
+        tia_pedro_pos = tia_pedro.get_rect(center = (428, 385))
+        tia_lucas_pos = tia_lucas.get_rect(center = (428, 410))
+        tia_claudio_pos = tia_claudio.get_rect(center = (428, 435))
+
+        # Imprime os textos
+        screen.blit(player_name_1, (90, 215))
+        screen.blit(player_name_2, (90, 240))
+        screen.blit(player_name_3, (90, 265))
+        screen.blit(player_name_4, (90, 290))
+        screen.blit(player_name_5, (90, 315))
+
+        screen.blit(pedro, (90, 370))
+        screen.blit(lucas, (90, 395))
+        screen.blit(claudio, (90, 420))
+
+        screen.blit(points_1, points_1_pos)
+        screen.blit(points_2, points_2_pos)
+        screen.blit(points_3, points_3_pos)
+        screen.blit(points_4, points_4_pos)
+        screen.blit(points_5, points_5_pos)
+
+        screen.blit(tia_pedro, tia_pedro_pos)
+        screen.blit(tia_lucas, tia_lucas_pos)
+        screen.blit(tia_claudio, tia_claudio_pos)
+
+        pygame.display.flip()
+        arquivo.close()
+
+        # Configurando os botões clicáveis
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x, y = event.pos
+            # Ao clicar no botão jogar
+            if 388 < x < 557 and 521 < y < 567:
+                nome_x = True
+                ranking = False
         
 
     # ----- JOGO -----
